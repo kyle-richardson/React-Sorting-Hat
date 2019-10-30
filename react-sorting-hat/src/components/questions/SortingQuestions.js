@@ -5,9 +5,7 @@ const SortingQuestions = ()=> {
     return(
         <div>
            <h1>Questions</h1>
-           <Link to="/results">
-                See results
-           </Link>
+           
         </div>
     )
 }
