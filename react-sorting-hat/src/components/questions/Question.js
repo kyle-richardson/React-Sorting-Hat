@@ -3,15 +3,15 @@ import {Link} from "react-router-dom"
 import QuestionForm from "./QuestionForm"
 
 const Question = props=> {
-    console.log(props)
-    const id = props.props.match.params.id
-    const {answers, questions} = props
+    const id = parseInt(props.props.match.params.id)
+    const {questions, handleChange, addAnswer} = props
     return(
+        id<=6 &&
         <div>
             <h2>Question {id}</h2>
-            <QuestionForm questions={questions}/>
-            <Link to={`/questions/${parseInt(id)+1}`}>
-                Next Question
+            <QuestionForm handleChange={handleChange} questions={questions} id={id}/>
+            <Link id={id} to={id<6 ? `/questions/${id+1}` : `/results`} onClick={addAnswer}>
+                {id<6 ? 'Next Question' : 'See Results'}
             </Link>
         </div>
     )

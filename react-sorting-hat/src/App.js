@@ -13,14 +13,25 @@ class App extends Component {
   constructor(){
     super()
     this.state={
-      answers: ['','','','','','']
+      answers: ['','','','','',''], 
+      selectedValue: ''
     }
   }
-  setAnswers=event=> {
-    const {index, value} = event.target
-    const newAnswers = [...this.props.answers, this.props.answers[index]=value]
+  addAnswer=event=> {
+    console.log(event.target)
+    const {id}= event.target
+    const newAnswers = this.state.answers.map((ele, ind)=> ind===id-1 ? this.state.selectedValue : ele)
     this.setState({
+      ...this.state,
       answers: newAnswers
+    })
+    console.log(this.state)
+  }
+  handleChange = event=> {
+    const {value} = event.target
+    this.setState({
+      ...this.state,
+      selectedValue: value
     })
   }
   render() {
@@ -29,7 +40,7 @@ class App extends Component {
         <Header />
         <Route exact path="/" render={props=> <InitiateButton props ={props}/>}/>
         {/* <Route exact path="/questions" render={props=> <SortingQuestions props ={props}/>}/> */}
-        <Route exact path="/questions/:id" render={props=> <Question props={props} answers={this.state.answers} questions={questions}/>}/>
+        <Route exact path="/questions/:id" render={props=> <Question props={props} addAnswer={this.addAnswer} questions={questions} handleChange={this.handleChange}/>}/>
         <Route exact path="/results" render={props=> <Results props ={props}/>}/>
         <Footer />
       </div>
