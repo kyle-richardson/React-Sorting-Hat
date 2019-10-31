@@ -1,5 +1,10 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+.question-form {
+  display: flex;
+  flex-direction: column;
+}
+.question-form > * {
+  padding: 5px;
+}
+.question-form > * input {
+  margin-right: 5px;
 }

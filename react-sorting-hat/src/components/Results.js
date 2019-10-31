@@ -1,10 +1,14 @@
-import React from "react"
+import React, {useEffect} from "react"
 
-const Results = ()=> {
+const Results = props=> {
+    const {handleSubmit, result} = props
+    useEffect(()=>{
+        handleSubmit()
+    },[])
     return(
         <div className="results-container">
             <h1>Results</h1>
-            <p>HufflePuff!</p>
+            <p>{result}</p>
         </div>
     )
 }
