@@ -97,7 +97,7 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="App-container">
+      <div className="app-container">
         {/* <Header /> */}
         <Route 
           exact 
