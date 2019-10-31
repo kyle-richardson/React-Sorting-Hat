@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Route} from "react-router-dom"
+import {Route, useHistory, Redirect} from "react-router-dom"
 
 import InitiateButton from "./components/InitiateButton"
 import Header from "./components/Header"
@@ -21,6 +21,17 @@ class App extends Component {
       },
     }
   }
+  componentDidMount() {
+    window.addEventListener('beforeunload', this.onUnload);
+ }
+
+ componentWillUnmount() {
+     window.removeEventListener('beforeunload', this.onUnload);
+ }
+  onUnload=()=> {
+    useHistory().push('/');
+  }
+
   addAnswer=event=> {
     const {id}= event.target
     const newAnswers = this.state.answers.map((ele, ind)=> ind===id-1 ? this.state.selectedValue : ele)
@@ -80,14 +91,14 @@ class App extends Component {
       ...this.state,
       result: {
         house: sortedArray[0].house,
-        percentage: sortedArray[0].points / 6 * 100
+        percentage: Math.round(sortedArray[0].points / 6 * 100)
       }
     })
   }
   render() {
     return (
       <div className="App-container">
-        <Header />
+        {/* <Header /> */}
         <Route 
           exact 
           path="/" 
