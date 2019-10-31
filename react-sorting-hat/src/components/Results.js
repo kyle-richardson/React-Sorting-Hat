@@ -8,7 +8,8 @@ const Results = props=> {
     return(
         <div className="results-container">
             <h1>Results</h1>
-            <p>{result}</p>
+            <p>{result.house} ( {result.percentage}% )</p>
+            <p></p>
         </div>
     )
 }

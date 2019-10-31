@@ -28,6 +28,7 @@ const QuestionForm = props => {
                         name={id}
                         value='B'
                         onChange={handleChange}
+                        checked={isChecked}
                     />{choiceTwo}
                 </label>
                 <label>
@@ -37,6 +38,7 @@ const QuestionForm = props => {
                         name={id}
                         value='C'
                         onChange={handleChange}
+                        checked={isChecked}
                     />{choiceThree}
                 </label>
                <label>
@@ -46,6 +48,7 @@ const QuestionForm = props => {
                         name={id}
                         value='D'
                         onChange={handleChange}
+                        checked={isChecked}
                     />{choiceFour}
                </label>
             </form>

@@ -14,8 +14,11 @@ class App extends Component {
     super()
     this.state={
       answers: ['','','','','',''], 
-      selectedValue: '',
-      result: '',
+      selectedValue: null,
+      result: {
+        house: '',
+        percentage: 0
+      },
     }
   }
   addAnswer=event=> {
@@ -24,8 +27,13 @@ class App extends Component {
     this.setState({
       ...this.state,
       answers: newAnswers,
-      selectedValue: ''
-    })
+    }, this.clearChecked())
+  }
+  clearChecked = () => {
+    this.setState({
+      ...this.state,
+      selectedValue: null
+      })
   }
   handleChange = event=> {
     const {value} = event.target
@@ -66,19 +74,46 @@ class App extends Component {
         points: slNumMatching
       }
     ]
+
+    const sortedArray = houseArray.sort((a,b)=>b.points - a.points)
     this.setState({
       ...this.state,
-      result: houseArray.sort((a,b)=>b.points - a.points)[0].house
+      result: {
+        house: sortedArray[0].house,
+        percentage: sortedArray[0].points / 6 * 100
+      }
     })
   }
   render() {
     return (
       <div className="App-container">
         <Header />
-        <Route exact path="/" render={props=> <InitiateButton props ={props}/>}/>
+        <Route 
+          exact 
+          path="/" 
+          render={props=> 
+          <InitiateButton props ={props}/>}/>
         {/* <Route exact path="/questions" render={props=> <SortingQuestions props ={props}/>}/> */}
-        <Route exact path="/questions/:id" render={props=> <Question props={props} addAnswer={this.addAnswer} questions={questions} handleChange={this.handleChange}/>}/>
-        <Route exact path="/results" render={props=> <Results props ={props} handleSubmit = {this.handleSubmit} result ={this.state.result}/>}/>
+        <Route 
+          exact 
+          path="/questions/:id" 
+          render={props=> 
+            <Question 
+              props={props} 
+              addAnswer={this.addAnswer} 
+              questions={questions} 
+              handleChange={this.handleChange}
+              isChecked = {this.isChecked}
+            />}/>
+        <Route 
+          exact 
+          path="/results" 
+          render={props=> 
+            <Results 
+              props ={props} 
+              handleSubmit = {this.handleSubmit} 
+              result ={this.state.result}
+            />}/>
         <Footer />
       </div>
     );
