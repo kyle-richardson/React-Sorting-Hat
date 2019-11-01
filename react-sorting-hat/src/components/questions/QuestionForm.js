@@ -1,13 +1,14 @@
-import React from "react"
+import React, {useEffect} from "react"
 
 const QuestionForm = props => {
     const id = props.id
-    const {handleChange, questions, isChecked} = props
+    const {handleChange, questions, selectedValue} = props
     const questionObj = questions[id-1]
     const {question, choiceOne, choiceTwo, choiceThree, choiceFour} = questionObj
     return(
         <div>
             <form className="question-form">
+                {console.log(id)}
                 <label>
                     {question}
                 </label>
@@ -18,7 +19,7 @@ const QuestionForm = props => {
                         name={id}
                         value='A'
                         onChange={handleChange}
-                        checked={isChecked}
+                        checked={selectedValue==='A'}
                     />{choiceOne}
                 </label>
                 <label>
@@ -28,7 +29,7 @@ const QuestionForm = props => {
                         name={id}
                         value='B'
                         onChange={handleChange}
-                        checked={isChecked}
+                        checked={selectedValue==='B'}
                     />{choiceTwo}
                 </label>
                 <label>
@@ -38,7 +39,7 @@ const QuestionForm = props => {
                         name={id}
                         value='C'
                         onChange={handleChange}
-                        checked={isChecked}
+                        checked={selectedValue==='C'}
                     />{choiceThree}
                 </label>
                <label>
@@ -48,7 +49,7 @@ const QuestionForm = props => {
                         name={id}
                         value='D'
                         onChange={handleChange}
-                        checked={isChecked}
+                        checked={selectedValue==='D'}
                     />{choiceFour}
                </label>
             </form>

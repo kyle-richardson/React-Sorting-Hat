@@ -5,7 +5,6 @@ import InitiateButton from "./components/InitiateButton"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
 import Results from "./components/Results"
-// import SortingQuestions from "./components/questions/SortingQuestions"
 import Question from "./components/questions/Question"
 import {questions} from "./components/questions/questionData"
 
@@ -14,13 +13,14 @@ class App extends Component {
     super()
     this.state={
       answers: ['','','','','',''], 
-      selectedValue: null,
+      selectedValue: '',
       result: {
         house: '',
         percentage: 0
       },
     }
   }
+  
   componentDidMount() {
     window.addEventListener('beforeunload', this.onUnload);
  }
@@ -36,27 +36,21 @@ class App extends Component {
     const {id}= event.target
     const newAnswers = this.state.answers.map((ele, ind)=> ind===id-1 ? this.state.selectedValue : ele)
     this.setState({
-      ...this.state,
       answers: newAnswers,
-    }, this.clearChecked())
+    }, this.clearChecked(id))
   }
-  clearChecked = () => {
+  clearChecked = (id) => {
     this.setState({
-      ...this.state,
-      selectedValue: null
+      selectedValue: ''
       })
   }
   handleChange = event=> {
     const {value} = event.target
     this.setState({
-      ...this.state,
       selectedValue: value
     })
   }
-  isChecked = event=> {
-    const {value} = event.target
-    return this.state.selectedValue===value
-  }
+
   handleSubmit = ()=> {
     const answers = this.state.answers
     const hufflepuff = ['D','A','C','D','B','D']
@@ -98,13 +92,11 @@ class App extends Component {
   render() {
     return (
       <div className="app-container">
-        {/* <Header /> */}
         <Route 
           exact 
           path="/" 
           render={props=> 
           <InitiateButton props ={props}/>}/>
-        {/* <Route exact path="/questions" render={props=> <SortingQuestions props ={props}/>}/> */}
         <Route 
           exact 
           path="/questions/:id" 
@@ -114,7 +106,7 @@ class App extends Component {
               addAnswer={this.addAnswer} 
               questions={questions} 
               handleChange={this.handleChange}
-              isChecked = {this.isChecked}
+              selectedValue={this.state.selectedValue}
             />}/>
         <Route 
           exact 

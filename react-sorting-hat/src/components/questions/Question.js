@@ -4,12 +4,17 @@ import QuestionForm from "./QuestionForm"
 
 const Question = props=> {
     const id = parseInt(props.props.match.params.id)
-    const {questions, handleChange, addAnswer} = props
+    const {questions, handleChange, addAnswer, selectedValue} = props
     return(
         id<=6 &&
         <div>
             <h2>Question {id}</h2>
-            <QuestionForm handleChange={handleChange} questions={questions} id={id}/>
+            <QuestionForm 
+                handleChange={handleChange} 
+                questions={questions} 
+                id={id}
+                selectedValue={selectedValue}
+            />
             <Link id={id} to={id<6 ? `/questions/${id+1}` : `/results`} onClick={addAnswer}>
                 {id<6 ? 'Next Question' : 'See Results'}
             </Link>
